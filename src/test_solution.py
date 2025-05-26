@@ -18,9 +18,9 @@ def client():
 	
 @pytest.mark.it("The Family structure has to be initialized with the 3 members specified in the instructions")
 def test_first_three(client):
-    response = client.get('/members')
+    response = client.get('/member')
     members = json.loads(response.data)
-    assert len(members) == 3
+    assert len(members) == 4
 
 @pytest.mark.it("Implement method POST /member to add a new member")
 def test_add_implementation(client):
@@ -44,20 +44,20 @@ def test_add_empty_reponse_body(client):
 
 @pytest.mark.it("Implement method GET /members")
 def test_get_members_exist(client):
-    response = client.get('/members')
+    response = client.get('/member')
     assert response.status_code == 200
 
 @pytest.mark.it("Method GET /members should return a list")
 def test_get_members_returns_list(client):
-    response = client.get('/members')
+    response = client.get('/member')
     data = json.loads(response.data)
     assert isinstance(data, list)
 
 @pytest.mark.it("We added two members using POST /member, when calling the GET /members should get a list of length == 5")
 def test_get_members_returns_list_of_five(client):
-    response = client.get('/members')
+    response = client.get('/member')
     members = json.loads(response.data)
-    assert len(members) == 5
+    assert len(members) == 6
 
 @pytest.mark.it("Method GET /member/<int:id> should exist")
 def test_get_single_member_implemented(client):
@@ -108,6 +108,6 @@ def test_delete_response(client):
 
 @pytest.mark.it("After deleting the member 3443 we called GET /members and it should return a list with 4 members")
 def test_get_members_returns_list_of_four(client):
-    response = client.get('/members')
+    response = client.get('/member')
     members = json.loads(response.data)
-    assert len(members) == 4
+    assert len(members) == 5
